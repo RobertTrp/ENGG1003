@@ -1,5 +1,5 @@
 /*
- * assessment1(1).c
+ * assessment1(2).c
  *
  *  Created on: 19 Mar 2019
  *      Author: Vectose
