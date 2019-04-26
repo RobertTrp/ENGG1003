@@ -1,0 +1,7 @@
+Substitution cipher encryption with key
+
+Message to encrypt: THIS IS A TEST MESSAGE
+Key: QWERTYUIOPASDFGHJKLZXCVBNM
+
+
+Encrypted message: ZIOL OL Q ZTLZ DTLLQUT
