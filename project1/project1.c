@@ -7,29 +7,33 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 void rotEncrypt(char *message, int rotKey);
 void rotDecrypt(char *message, int rotKey);
 void rotDecryptWoKey(char *message);
-void subEncrypt(char *message, char *subKey, char *alphabet);
-void subDecrypt(char *message, char *subKey, char *alphabet);
+void subEncrypt(char *message, char *subKey, const char *alphabet);
+void subDecrypt(char *message, char *subKey, const char *alphabet);
 void subDecryptWoKey(char *message);
 int readFile(char *fileName, char *message, char *rotKeyS, char *subKey);
 
 int main() {
 	/* change filename to one of below
-	 * Rotation cipher encryption with key:        rot1.txt
-	 * Rotation cipher decryption with key:        rot2.txt
-	 * Rotation cipher decryption without key:     rot3.txt
-	 * Substitution cipher encryption with key:    sub1.txt
-	 * Substitution cipher decryption with key:    sub2.txt
-	 * Substitution cipher decryption without key: sub3.txt
+	 * Rotation cipher encryption with key:        rot1
+	 * Rotation cipher decryption with key:        rot2
+	 * Rotation cipher decryption without key:     rot3
+	 * Substitution cipher encryption with key:    sub1
+	 * Substitution cipher decryption with key:    sub2
+	 * Substitution cipher decryption without key: sub3
 	 */
-	char fileName[] = "sub1.txt"; // The name of the file to read from
-	char message[255]; // The message to be encrypted or decrypted read from the file
-	char rotKeyS[30]; // Rotation cipher key string read from file
-	char subKey[]   = "QWERTYUIOPASDFGHJKLZXCVBNM"; // Substitution cipher key read from file
-	char alphabet[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // Alphabe for comparison of letters
+	FILE *selection;
+	selection = fopen("selection", "r");
+	char fileName[10]; // The name of the file to read from
+	char message[1024]; // The message to be encrypted or decrypted read from the file
+	char rotKeyS[26]; // Rotation cipher key string read from file
+	char subKey[26]; // Substitution cipher key read from file
+	const char alphabet[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // Alphabet for comparison of letters
+	fgets(fileName, 10, selection);
 	int task = readFile(fileName, message, rotKeyS, subKey); // task selection read from file
 	int rotKey = atoi(rotKeyS); // Convert rotation key string to integer
 	//printf("%d\n", rotKey);
@@ -38,7 +42,7 @@ int main() {
 	// convert input to upper case
 	for(int i = 0; message[i] != '\0'; i++) {
 		if (message[i] >= 'a' && message[i] <= 'z')
-			message[i] += -32;
+			message[i] -= 32;
 	}
 
 	// After the task integer is read from file, run selected function
@@ -131,7 +135,7 @@ void rotDecryptWoKey(char *message) {
 
 /***********************************************************************************************/
 // Substitution cipher encryption
-void subEncrypt(char *message, char *subKey, char *alphabet) {
+void subEncrypt(char *message, char *subKey, const char *alphabet) {
 	FILE *output;
 	output = fopen("output.txt", "w");
 	printf("Substitution cipher encryption with key\n\n");
@@ -164,7 +168,7 @@ void subEncrypt(char *message, char *subKey, char *alphabet) {
  * Substitution cipher decryption
  *
  */
-void subDecrypt(char *message, char *subKey, char *alphabet) {
+void subDecrypt(char *message, char *subKey, const char *alphabet) {
 	FILE *output;
 	output = fopen("output.txt", "w");
 	printf("Substitution cipher decryption with key\n\n");
@@ -196,16 +200,15 @@ void subDecrypt(char *message, char *subKey, char *alphabet) {
 
 void subDecryptWoKey(char *message) {
 	FILE *output;
-		output = fopen("output.txt", "w");
-		printf("Substitution cipher decryption without key\n\n");
-		printf("Message to decrypt: %s\n", message);
-		fprintf(output, "Substitution cipher decryption without key\n\n");
-		fprintf(output, "Message to decrypt: %s\n", message);
-		//add code here
-		printf("Decrypted message: %s\n", message);
-		fprintf(output, "Decrypted message: %s\n", message);
-		fclose(output);
-
+	output = fopen("output.txt", "w");
+	printf("Substitution cipher decryption without key\n\n");
+	printf("Message to decrypt: %s\n", message);
+	fprintf(output, "Substitution cipher decryption without key\n\n");
+	fprintf(output, "Message to decrypt: %s\n", message);
+	//add code here
+	printf("Decrypted message: %s\n", message);
+	fprintf(output, "Decrypted message: %s\n", message);
+	fclose(output);
 }
 
 
@@ -225,7 +228,7 @@ void subDecryptWoKey(char *message) {
  */
 
 int readFile(char *fileName, char *message, char *rotKeyS, char *subKey) {
-	char buff[255];
+	char buff[1024];
 	FILE *input;
 	input = fopen(fileName, "r");
 	if (input == NULL) {
@@ -233,32 +236,36 @@ int readFile(char *fileName, char *message, char *rotKeyS, char *subKey) {
 		return 0;
 	}
 	else {
-		fgets(buff, 255, (FILE*)input);
+		fgets(buff, 255, input);
 		int task = atoi(buff);
 		if (task < 3) {							//1 = rotation enrypt with key, 2 = rotation decrypt with key
-			fgets(buff, 255, (FILE*)input);
+			fgets(buff, 255, input);
 			strcpy(rotKeyS, buff);
-			fgets(buff, 255, (FILE*)input);
+			fgets(buff, 1024, input);
 			strcpy(message, buff);
 			return task;
 		}
 		else if (task == 3) {                       //3 = rotation decrypt without key
-			fgets(buff, 255, (FILE*)input);
+			fgets(buff, 1024, input);
 			strcpy(message, buff);
 			return task;
 		}
 		else if (task > 3 && task < 6) {            // 4 = substitution encrypt with key, 5 = substitution decrypt with key
-			fgets(buff, 255, (FILE*)input);
+			fgets(buff, 255, input);
 			strcpy(subKey, buff);
-			fgets(buff, 255, (FILE*)input);
+			fgets(buff, 1024, input);
 			strcpy(message, buff);
 			return task;
 		}
 		else if (task == 6) {						// 6 = substitution decrypt without key
-			fgets(buff, 255, (FILE*)input);
+
+			for(int i = 0; !feof(input); i++) {
+				fscanf(input, "%c", &buff[i]);
+			}
 			strcpy(message, buff);
 			return task;
 		}
 	}
+	fclose(input);
 	return 0;
 }
