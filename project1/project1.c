@@ -229,6 +229,7 @@ void subDecryptWoKey(char *message) {
 
 int readFile(char *fileName, char *message, char *rotKeyS, char *subKey) {
 	char buff[1024];
+	int i;
 	FILE *input;
 	input = fopen(fileName, "r");
 	if (input == NULL) {
@@ -241,27 +242,36 @@ int readFile(char *fileName, char *message, char *rotKeyS, char *subKey) {
 		if (task < 3) {							//1 = rotation enrypt with key, 2 = rotation decrypt with key
 			fgets(buff, 255, input);
 			strcpy(rotKeyS, buff);
-			fgets(buff, 1024, input);
+			for(i = 0; !feof(input); i++) {
+				fscanf(input, "%c", &buff[i]);
+			}
+			buff[i-1] = '\0';
 			strcpy(message, buff);
 			return task;
 		}
 		else if (task == 3) {                       //3 = rotation decrypt without key
-			fgets(buff, 1024, input);
+			for(i = 0; !feof(input); i++) {
+				fscanf(input, "%c", &buff[i]);
+			}
+			buff[i-1] = '\0';
 			strcpy(message, buff);
 			return task;
 		}
 		else if (task > 3 && task < 6) {            // 4 = substitution encrypt with key, 5 = substitution decrypt with key
 			fgets(buff, 255, input);
 			strcpy(subKey, buff);
-			fgets(buff, 1024, input);
+			for(i = 0; !feof(input); i++) {
+				fscanf(input, "%c", &buff[i]);
+			}
+			buff[i-1] = '\0';
 			strcpy(message, buff);
 			return task;
 		}
 		else if (task == 6) {						// 6 = substitution decrypt without key
-
-			for(int i = 0; !feof(input); i++) {
+			for(i = 0; !feof(input); i++) {
 				fscanf(input, "%c", &buff[i]);
 			}
+			buff[i-1] = '\0';
 			strcpy(message, buff);
 			return task;
 		}
