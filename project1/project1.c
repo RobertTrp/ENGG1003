@@ -18,26 +18,17 @@ void subDecryptWoKey(char *message);
 int readFile(char *fileName, char *message, char *rotKeyS, char *subKey);
 
 int main() {
-	/* change filename to one of below
-	 * Rotation cipher encryption with key:        rot1
-	 * Rotation cipher decryption with key:        rot2
-	 * Rotation cipher decryption without key:     rot3
-	 * Substitution cipher encryption with key:    sub1
-	 * Substitution cipher decryption with key:    sub2
-	 * Substitution cipher decryption without key: sub3
-	 */
 	FILE *selection;
-	selection = fopen("selection", "r");
+	selection = fopen("selection", "r"); // open file selection file
 	char fileName[10]; // The name of the file to read from
 	char message[1024]; // The message to be encrypted or decrypted read from the file
 	char rotKeyS[26]; // Rotation cipher key string read from file
 	char subKey[26]; // Substitution cipher key read from file
 	const char alphabet[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // Alphabet for comparison of letters
-	fgets(fileName, 10, selection);
+	fscanf(selection, "%s", fileName); // retrieve fileName from selection file
 	int task = readFile(fileName, message, rotKeyS, subKey); // task selection read from file
 	int rotKey = atoi(rotKeyS); // Convert rotation key string to integer
-	//printf("%d\n", rotKey);
-	//printf("Original message: %s\n", message);
+	fclose(selection);
 
 	// convert input to upper case
 	for(int i = 0; message[i] != '\0'; i++) {
@@ -76,20 +67,20 @@ int main() {
 
 void rotEncrypt(char *message, int rotKey) {
 	FILE *output;
-	output = fopen("output.txt", "w");
+	output = fopen("output", "w");
 	printf("Rotation cipher encryption with key\n\n");
-	printf("Message to encrypt: %s\n", message);
+	printf("Message to encrypt:\n%s\n\n", message);
 	fprintf(output, "Rotation cipher encryption with key\n\n");
-	fprintf(output, "Message to encrypt: %s", message);
+	fprintf(output, "Message to encrypt:\n%s\n\n", message);
 	for(int i = 0; message[i] != '\0'; i++) {				 //loop if message character at index i does not equal NULL
 		if (message[i] >= 'A' && message[i] <= 'Z') {		 //check if character is between A and Z
 			message[i] = (message[i]-65 + rotKey)%26 + 65;   //shift character by key value
 		}
 	}
 	printf("Key: %d\n\n", rotKey);
-	printf("Encrypted message: %s\n", message);				//print encrypted message
+	printf("Encrypted message:\n%s\n", message);				//print encrypted message
 	fprintf(output, "Key: %d\n\n", rotKey);
-	fprintf(output, "Encrypted message: %s\n", message);
+	fprintf(output, "Encrypted message:\n%s\n", message);
 	fclose(output);
 }
 
@@ -100,20 +91,20 @@ void rotEncrypt(char *message, int rotKey) {
 
 void rotDecrypt(char *message, int rotKey) {
 	FILE *output;
-	output = fopen("output.txt", "w");
+	output = fopen("output", "w");
 	printf("Rotation cipher decryption with key\n\n");
-	printf("Message to decrypt: %s\n", message);
+	printf("Message to decrypt:\n%s\n\n", message);
 	fprintf(output, "Rotation cipher decryption with key\n\n");
-	fprintf(output, "Message to decrypt: %s\n", message);
+	fprintf(output, "Message to decrypt:\n%s\n\n", message);
 		for(int i = 0; message[i] != '\0'; ++i) {						//loop if message character at index i does not equal NULL
 			if (message[i] >= 'A' && message[i] <= 'Z') {				//check if character is between A and Z
 				message[i] = (message[i]-65 + (26-rotKey))%26 + 65;		//shift character opposite direction by key value
 			}
 		}
 	printf("Key: %d\n\n", rotKey);
-	printf("Decrypted message: %s\n", message);						//print decrypted message
+	printf("Decrypted message:\n%s\n", message);						//print decrypted message
 	fprintf(output, "Key: %d\n\n", rotKey);
-	fprintf(output, "Decrypted message: %s\n", message);
+	fprintf(output, "Decrypted message:\n%s\n", message);
 	fclose(output);
 }
 
@@ -122,14 +113,20 @@ void rotDecrypt(char *message, int rotKey) {
 
 void rotDecryptWoKey(char *message) {
 	FILE *output;
-		output = fopen("output.txt", "w");
+		output = fopen("output", "w");
 		printf("Rotation cipher decryption without key\n\n");
-		printf("Message to decrypt: %s\n", message);
+		printf("Message to decrypt:\n%s\n\n", message);
 		fprintf(output, "Rotation cipher decryption without key\n\n");
-		fprintf(output, "Message to decrypt: %s\n", message);
-		//add code here
-		printf("Decrypted message: %s\n", message);						//print decrypted message
-		fprintf(output, "Decrypted message: %s\n", message);
+		fprintf(output, "Message to decrypt:\n%s\n\n", message);
+		for(int j = 1; j < 26; j++) {
+			for(int i = 0; message[i] != '\0'; ++i) {						//loop if message character at index i does not equal NULL
+				if (message[i] >= 'A' && message[i] <= 'Z') {				//check if character is between A and Z
+					message[i] = (message[i]-65 + (26-j))%26 + 65;		//shift character opposite direction by key value
+				}
+			}
+			printf("Decrypted message %d:\n%s\n\n", j, message);
+			fprintf(output, "Decrypted message %d:\n%s\n", j, message);
+		}
 		fclose(output);
 }
 
@@ -137,11 +134,11 @@ void rotDecryptWoKey(char *message) {
 // Substitution cipher encryption
 void subEncrypt(char *message, char *subKey, const char *alphabet) {
 	FILE *output;
-	output = fopen("output.txt", "w");
+	output = fopen("output", "w");
 	printf("Substitution cipher encryption with key\n\n");
-	printf("Message to encrypt: %s\n", message);
+	printf("Message to encrypt:\n%s\n\n", message);
 	fprintf(output, "Substitution cipher encryption with key\n\n");
-	fprintf(output, "Message to encrypt: %s\n", message);
+	fprintf(output, "Message to encrypt:\n%s\n\n", message);
 	for(int i = 0, j = 0; message[i] != '\0';) {			//loop if message character at index i does not equal NULL
 		if (message[i] >= 'A' && message[i] <= 'Z') {		//check if character is between A and Z
 			if (message[i] == alphabet[j]) {				//check if character is equal to a character in the plain alphabet
@@ -157,9 +154,9 @@ void subEncrypt(char *message, char *subKey, const char *alphabet) {
 		//printf("%d\n", message[i]);
 		}
 	printf("Key: %s\n", subKey);
-	printf("Encrypted message: %s\n", message);
-	fprintf(output, "Key: %s\n\n", subKey);
-	fprintf(output, "Encrypted message: %s\n", message);
+	printf("Encrypted message:\n%s\n\n", message);
+	fprintf(output, "Key: %s\n", subKey);
+	fprintf(output, "Encrypted message:\n%s\n", message);
 	fclose(output);
 }
 
@@ -170,11 +167,11 @@ void subEncrypt(char *message, char *subKey, const char *alphabet) {
  */
 void subDecrypt(char *message, char *subKey, const char *alphabet) {
 	FILE *output;
-	output = fopen("output.txt", "w");
+	output = fopen("output", "w");
 	printf("Substitution cipher decryption with key\n\n");
-	printf("Message to decrypt: %s\n", message);
+	printf("Message to decrypt:\n%s\n\n", message);
 	fprintf(output, "Substitution cipher decryption with key\n\n");
-	fprintf(output, "Message to decrypt: %s\n", message);
+	fprintf(output, "Message to decrypt:\n%s\n\n", message);
 	for(int i = 0, j = 0; message[i] != '\0';) {			//loop if message character at index i does not equal NULL
 		if (message[i] >= 'A' && message[i] <= 'Z') {		//check if character is between A and Z
 			if (message[i] == subKey[j]) {					//check if encrypted character is equal to a character in the key
@@ -189,25 +186,25 @@ void subDecrypt(char *message, char *subKey, const char *alphabet) {
 		i++;
 		}
 	printf("Key: %s\n\n", subKey);
-	printf("Decrypted message: %s\n", message);
+	printf("Decrypted message:\n%s\n\n", message);
 	fprintf(output, "Key: %s\n\n", subKey);
-	fprintf(output, "Decrypted message: %s\n", message);
+	fprintf(output, "Decrypted message:\n%s\n\n", message);
 	fclose(output);
 }
 
 /***********************************************************************************************/
-// Rotation cipher decryption
+// Substitution cipher decryption
 
 void subDecryptWoKey(char *message) {
 	FILE *output;
-	output = fopen("output.txt", "w");
+	output = fopen("output", "w");
 	printf("Substitution cipher decryption without key\n\n");
-	printf("Message to decrypt: %s\n", message);
+	printf("Message to decrypt:\n%s\n\n", message);
 	fprintf(output, "Substitution cipher decryption without key\n\n");
-	fprintf(output, "Message to decrypt: %s\n", message);
+	fprintf(output, "Message to decrypt:\n%s\n\n", message);
 	//add code here
-	printf("Decrypted message: %s\n", message);
-	fprintf(output, "Decrypted message: %s\n", message);
+	printf("Decrypted message:\n%s\n\n", message);
+	fprintf(output, "Decrypted message:\n%s\n\n", message);
 	fclose(output);
 }
 
