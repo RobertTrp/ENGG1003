@@ -5,6 +5,7 @@
  *      Author: Robert Trpeski
  */
 
+
 /**********************************************************************************************
  * To change the task, enter the following in the first line of the file "selection"
  * Rotation cipher encryption with key:         rot1
