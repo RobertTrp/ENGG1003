@@ -16,7 +16,6 @@
  * Substitution cipher decryption without key:  sub3
  **********************************************************************************************/
 
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -38,7 +37,7 @@ void caseConversion(char *message, char*subKey);
  * The name of the file to be opened is read from a file named selection
  * FileName, message, rotKeyS and subKey are passed down to the readFile function as pointers and values changed to what is read from a file
  * The rotation key is converted from a string to an integer using the atoi function
- * message and subKey are converted to uppercase after rad from file
+ * message and subKey are converted to upper case after read from file
  **********************************************************************************************/
 int main() {
 	FILE *selection;
@@ -55,9 +54,8 @@ int main() {
 	fclose(selection);													//close selection file
 
 
-	// After the task integer is read from file, run selected function
+	//After the task integer is read from file, run selected function
 	switch (task) {
-
 		case 1:
 			rotEncrypt(message, rotKey);
 			break;
@@ -83,13 +81,13 @@ int main() {
 
 /**********************************************************************************************
  * Rotation cipher encryption
+ * message and rotation cipher key are passed to this function
  * This function takes a message and key and encrypts it using a rotation cipher key
  * The ASCII value of 'A' to 'Z' is shifted down to 0-25
  * The value is then shifted by the key value and using the modulus operator is constrained to 0-25;
  * The ASCII value is then shifted back up by the initial ASCII value to output the new letter shifted by the key value
  * output is printed to both console and file named output
  **********************************************************************************************/
-
 void rotEncrypt(char *message, int rotKey) {
 	FILE *output;														//declare pointer of FILE type
 	output = fopen("output", "w");								    	//open output file
@@ -111,17 +109,15 @@ void rotEncrypt(char *message, int rotKey) {
 	fclose(output);
 }
 
-
-
 /**********************************************************************************************
  * Rotation cipher decryption
+ * message and rotation cipher key are passed to this function
  * This function takes an encrypted message and key and decrypts is using a rotation cipher key
  * The ASCII value of 'A' to 'Z' is shifted down to 0-25
  * The value is then shifted in the negative direction by the key value and using the modulus operator is constrained to 0-25;
  * The ASCII value is then shifted back up by the initial ASCII value to output the new letter shifted by the key value
  * output is printed to both console and a file named output
  **********************************************************************************************/
-
 void rotDecrypt(char *message, int rotKey) {
 	FILE *output;														//declare pointer of FILE type
 	output = fopen("output", "w");										//open output file
@@ -145,13 +141,13 @@ void rotDecrypt(char *message, int rotKey) {
 
 /***********************************************************************************************
  * Rotation cipher decryption without key
+ * message is passed to this function
  * This function takes a message encrypted with a rotation cipher and decrypts it without a known key as well as finding the key
  * The ASCII value of 'A' to 'Z' is shifted down to 0-25
  * The value is then shifted in the negative direction by the key value and using the modulus operator is constrained to 0-25;
  * The ASCII value is then shifted back up by the initial ASCII value to output the new letter shifted by the key value
  * The message is tested with each key value between 0-25 and all are output to the console and file named output
  **********************************************************************************************/
-
 void rotDecryptWoKey(char *message) {
 	FILE *output;														//declare pointer of FILE type
 	output = fopen("output", "w");										//open output file
@@ -179,6 +175,7 @@ void rotDecryptWoKey(char *message) {
 
 /***********************************************************************************************
  * Substitution cipher encryption
+ * message, substitution cipher key and alphabet are passed to this function
  * This function takes a message and scrambled alphabet key and encrypts the message by searching for the letter
  * in the plain alphabet array and replacing it with the letter with the same index value from the key array
  * If the character is not a letter, it is left as is and the next character is checked until the end of the message array is reached
@@ -215,8 +212,9 @@ void subEncrypt(char *message, char *subKey, const char *alphabet) {
 
 /**********************************************************************************************
  * Substitution cipher decryption with key
+ * message, substitution cipher key and alphabet are passed to this function
  * This function takes a encrypted message and scrambled alphabet key and decrypts the message by searching for the letter
- * in the key array and replacing it with the letter with the same index value from the alphabt array
+ * in the key array and replacing it with the letter with the same index value from the alphabet array
  * If the character is not a letter, it is left as is and the next character is checked until the end of the message array is reached
  * Output is printed to both the console and a file named output
 ************************************************************************************************/
@@ -269,6 +267,7 @@ void subDecryptWoKey(char *message) {
 
 /**********************************************************************************************
  * readFile
+ * fileName, message, rotation key and subKey are passed to this function
  * When this function is called, the selected file (fileName) is opened and first line is read,
  * which is an integer between 1 and 6 for task selection. The string is read and converted to an integer variable
  * named "task".
@@ -345,6 +344,7 @@ int readFile(char *fileName, char *message, char *rotKeyS, char *subKey) {
 
 /***********************************************************************************************
  * Case conversion
+ * message and substitution cipher key are passed to this function
  * This function converts any lower case letters in message and subKey to upper case
  * pointers to message and subKey are passed as arguments
  * Any characters that are not english alphabet letters remain the same
