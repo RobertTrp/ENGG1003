@@ -1,7 +1,16 @@
-Substitution cipher encryption with key
+Substitution cipher decryption without key
 
-Message to encrypt: THIS IS A TEST MESSAGE
-Key: QWERTYUIOPASDFGHJKLZXCVBNM
+Message to decrypt:
+THIS IS A TEST MESSAGE
+TEST MESSAGE
+MESSAGE TEST
+TEST
+MESSAGE
 
+Decrypted message:
+THIS IS A TEST MESSAGE
+TEST MESSAGE
+MESSAGE TEST
+TEST
+MESSAGE
 
-Encrypted message: ZIOL OL Q ZTLZ DTLLQUT

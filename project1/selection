@@ -1,1 +1,8 @@
-rot1
+sub3
+
+ * Rotation cipher encryption with key:         rot1
+ * Rotation cipher decryption with key:         rot2
+ * Rotation cipher decryption without key:      rot3
+ * Substitution cipher encryption with key:     sub1
+ * Substitution cipher decryption with key:     sub2
+ * Substitution cipher decryption without key:  sub3

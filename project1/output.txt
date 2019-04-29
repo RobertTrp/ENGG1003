@@ -1,37 +1,7 @@
-Rotation cipher encryption with key
+Rotation cipher decryption with key
 
-Message to encrypt: THIS IS A TEST MESSAGE
-DSF
-SFDS
-F
-CDSC
-DSFXZ
-VCFSAV
-SAFD
-CXV
-DSXG
-RDAFDSFSDFDSFSD
-FDSF
-FDJGFH
-GF
-BV
-FSGCXB
-VCKey: 21
+Message to decrypt: SDRS LDRRZFD
 
-Encrypted message: OCDN DN V OZNO HZNNVBZ
-YNA
-NAYN
-A
-XYNX
-YNASU
-QXANVQ
-NVAY
-XSQ
-YNSB
-MYVAYNANYAYNANY
-AYNA
-AYEBAC
-BA
-WQ
-ANBXSW
-QX
+Key: 25
+
+Decrypted message: TEST MESSAGE
