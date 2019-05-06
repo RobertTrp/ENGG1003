@@ -7,19 +7,16 @@
  */
 #include<stdio.h>
 
-void zeroInt(int *xp);
+void zeroInt(int *x);
 
 int main() {
-	int *xp, x = 3;
-	xp = &x;
-	printf("%d\n", x);
-	zeroInt(xp);
-	printf("%d", x);
-
+	int a = 3;
+	printf("%d\n", a);
+	zeroInt(&a);
+	printf("%d", a);
 
 }
 
-
-void zeroInt(int *xp) {
-	*xp = 0;
+void zeroInt(int *x) {
+	*x = 0;
 }

@@ -7,16 +7,13 @@
  */
 #include<stdio.h>
 
-void swap(int *ap, int *bp);
+void swap(int *a, int *b);
 
 int main() {
 	int a = 3, b = 5;
-	int *ap, *bp;
-	ap = &a;
-	bp = &b;
 	printf("a = %d\n", a);
 	printf("b = %d\n", b);
-	swap(ap, bp);
+	swap(&a, &b);
 	printf("a = %d\n", a);
 	printf("b = %d\n", b);
 
@@ -24,9 +21,9 @@ int main() {
 }
 
 
-void swap(int *ap, int *bp) {
+void swap(int *a, int *b) {
 	int tmp;
-	tmp = *ap;
-	*ap = *bp;
-	*bp = tmp;
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
 }

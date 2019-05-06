@@ -18,7 +18,7 @@ int main() {
 			mean += myArray[i][j];
 		}
 	}
-	mean = mean/9;
+	mean /= 9;
 	printf("mean = %f\n", mean);
 }
 

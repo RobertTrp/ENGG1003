@@ -35,8 +35,10 @@ int main() {
 			if (array[i][j] > maximum)
 				maximum = array[i][j];
 		}
+		printf("\n");
 	}
 	printf("\nMaximum: %d\n", maximum);
+	fclose(input);
 }
 
 

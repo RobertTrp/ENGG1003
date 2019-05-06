@@ -5,18 +5,17 @@
  *  Created on: 6 May 2019
  *      Author: Vectose
  */
+
 #include<stdio.h>
 
-void mean(int *ap, int *bp, int *cp);
+void mean(int *a, int *b, int *c);
 
 int main() {
 	int a = 5, b = 22, c = 9;
-	int *ap, *bp, *cp;
-	ap = &a, bp = &b, cp = &c;
 	printf("a = %d\n", a);
 	printf("b = %d\n", b);
-	printf("c = %d\n", c);
-	mean(ap, bp, cp);
+	printf("c = %d\n\n", c);
+	mean(&a, &b, &c);
 	printf("a = %d\n", a);
 	printf("b = %d\n", b);
 	printf("c = %d\n", c);
@@ -24,10 +23,10 @@ int main() {
 
 }
 
-void mean(int *ap, int *bp, int *cp) {
+void mean(int *a, int *b, int *c) {
 	float mean;
-	mean = (*ap + *bp + *cp)/3;
-	*ap = mean;
-	*bp = 0;
-	*cp = 0;
+	mean = (*a + *b + *c)/3;
+	*a = mean;
+	*b = 0;
+	*c = 0;
 }
