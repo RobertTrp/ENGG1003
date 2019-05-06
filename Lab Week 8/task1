@@ -1,0 +1,25 @@
+/*
+ * Lab: Week 8
+ * task1.c
+ *
+ *  Created on: 6 May 2019
+ *      Author: Vectose
+ */
+#include<stdio.h>
+
+void zeroInt(int *xp);
+
+int main() {
+	int *xp, x = 3;
+	xp = &x;
+	printf("%d\n", x);
+	zeroInt(xp);
+	printf("%d", x);
+
+
+}
+
+
+void zeroInt(int *xp) {
+	*xp = 0;
+}

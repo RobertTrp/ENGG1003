@@ -1,0 +1,33 @@
+/*
+ * Lab: Week 8
+ * task3.c
+ *
+ *  Created on: 6 May 2019
+ *      Author: Vectose
+ */
+#include<stdio.h>
+
+void mean(int *ap, int *bp, int *cp);
+
+int main() {
+	int a = 5, b = 22, c = 9;
+	int *ap, *bp, *cp;
+	ap = &a, bp = &b, cp = &c;
+	printf("a = %d\n", a);
+	printf("b = %d\n", b);
+	printf("c = %d\n", c);
+	mean(ap, bp, cp);
+	printf("a = %d\n", a);
+	printf("b = %d\n", b);
+	printf("c = %d\n", c);
+
+
+}
+
+void mean(int *ap, int *bp, int *cp) {
+	float mean;
+	mean = (*ap + *bp + *cp)/3;
+	*ap = mean;
+	*bp = 0;
+	*cp = 0;
+}

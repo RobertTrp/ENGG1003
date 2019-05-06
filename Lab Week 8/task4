@@ -1,0 +1,24 @@
+/*
+ * task4.c
+ *
+ *  Created on: 6 May 2019
+ *      Author: Vectose
+ */
+
+#include <stdio.h>
+
+int main() {
+	float mean = 0;
+	float myArray[3][3] = { { 0.1, 0.2, 0.3 },
+							{ 1.1, 1.2, 1.3 },
+							{ 2.1, 2.2, 2.3 } };
+
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			mean += myArray[i][j];
+		}
+	}
+	mean = mean/9;
+	printf("mean = %f\n", mean);
+}
+
