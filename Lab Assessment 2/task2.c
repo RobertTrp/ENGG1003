@@ -24,8 +24,8 @@ int main() {
 			image[x][y][0] = (float)rand()/(float)INT_MAX; //r
 			image[x][y][1] = (float)rand()/(float)INT_MAX; //g
 			image[x][y][2] = (float)rand()/(float)INT_MAX; //b
-			printf("%d %d: ", x, y);
 			pixelMean(&image[x][y][0], &image[x][y][1], &image[x][y][2]);
+			printf("%d %d: %f %f %f\n", x, y, image[x][y][0], image[x][y][1], image[x][y][2]);
 		}
 	}
 
@@ -38,8 +38,7 @@ return 0;
 }
 
 void pixelMean(float *r, float *g, float *b) {
-	float rr = (*r + *g + *b)/3.0;
-	float gg = (*r + *g + *b)/3.0;
-	float bb = (*r + *g + *b)/3.0;
-	printf("%f %f %f\n", rr, gg, bb);
+	*r = (*r + *g + *b)/3.0;
+	*g = *r;
+	*b = *r;
 }

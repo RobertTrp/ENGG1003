@@ -12,7 +12,6 @@
 
 int main() {
 	float image[5][5][3];
-	float r, g, b;
 	int x, y;
 
 	// Don’t change this srand() line!
@@ -23,10 +22,10 @@ int main() {
 			image[x][y][0] = (float)rand()/(float)INT_MAX; //r
 			image[x][y][1] = (float)rand()/(float)INT_MAX; //g
 			image[x][y][2] = (float)rand()/(float)INT_MAX; //b
-			r = (image[x][y][0] + image[x][y][1] + image[x][y][2])/3.0;
-			g = (image[x][y][0] + image[x][y][1] + image[x][y][2])/3.0;
-			b = (image[x][y][0] + image[x][y][1] + image[x][y][2])/3.0;
-			printf("%d %d: %f %f %f\n", x, y, r, g, b);
+			image[x][y][0] = (image[x][y][0] + image[x][y][1] + image[x][y][2])/3.0;
+			image[x][y][1] = image[x][y][0];
+			image[x][y][2] = image[x][y][0];
+			printf("%d %d: %f %f %f\n", x, y, image[x][y][0], image[x][y][1], image[x][y][2]);
 		}
 	}
 

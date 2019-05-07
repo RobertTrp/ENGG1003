@@ -21,19 +21,18 @@ int main() {
 		for (int y = 0; y < 5; y++) {
 			for (int x = 0; x < 5; x++) {
 				fscanf(input, "%f %f %f", &image[x][y][0], &image[x][y][1], &image[x][y][2]);
-				printf("%d %d: ", x, y);
 				pixelMean(&image[x][y][0], &image[x][y][1], &image[x][y][2]);
+				printf("%d %d: %f %f %f\n", x, y, image[x][y][0], image[x][y][1], image[x][y][2]);
 			}
 		}
 	}
 
 	fclose(input);
-return 0;
+	return 0;
 }
 
 void pixelMean(float *r, float *g, float *b) {
-	float rr = (*r + *g + *b)/3.0;
-	float gg = (*r + *g + *b)/3.0;
-	float bb = (*r + *g + *b)/3.0;
-	printf("%f %f %f\n", rr, gg, bb);
+	*r = (*r + *g + *b)/3.0;
+	*g = *r;
+	*b = *r;
 }
