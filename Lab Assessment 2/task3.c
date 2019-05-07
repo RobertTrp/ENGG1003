@@ -1,5 +1,5 @@
 /*
- * task1.c
+ * task3.c
  *
  *  Created on: 7 May 2019
  *      Author: Vectose
