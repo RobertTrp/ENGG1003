@@ -20,13 +20,7 @@ int main() {
 	for (int i = 0; !feof(input); i++) {
 		for (int y = 0; y < 5; y++) {
 			for (int x = 0; x < 5; x++) {
-				float tmp;
-				fscanf(input, "%f", &tmp);
-				image[x][y][0] = tmp;
-				fscanf(input, "%f", &tmp);
-				image[x][y][1] = tmp;
-				fscanf(input, "%f", &tmp);
-				image[x][y][2] = tmp;
+				fscanf(input, "%f %f %f", &image[x][y][0], &image[x][y][1], &image[x][y][2]);
 				printf("%d %d: ", x, y);
 				pixelMean(&image[x][y][0], &image[x][y][1], &image[x][y][2]);
 			}
