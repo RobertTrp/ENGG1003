@@ -11,19 +11,18 @@
 int main() {
 	FILE *input;
 	input = fopen("task5input", "r");
-	int a1 = 3, a2 = 3;
+	int a1, a2;
+	fscanf(input, "%d %d", &a1, &a2);
 	int array[a1][a2];
-	char tmp[10];
-	int tmpnum;
+	int tmp;
 	int maximum = 0;
 
 	for (int i = 0; !feof(input); i++) {
 		for (int j = 0; j < a1; j++) {
 			for (int k = 0; k < a2; k++)
 			{
-				fscanf(input, "%s", tmp);
-				tmpnum = atoi(tmp);
-				array[j][k] = tmpnum;
+				fscanf(input, "%d", &tmp);
+				array[j][k] = tmp;
 			}
 		}
 	}
